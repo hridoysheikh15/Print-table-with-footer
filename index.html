@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Formatter</title>
+    <style>
+      thead td {
+        font-size: 36px;
+      }
+      tbody td {
+        font-size: 28px;
+      }
+      thead td,
+      tr td {
+        border: 1px solid;
+      }
+      tfoot {
+        display: none;
+        border: none;
+        line-height: 10px;
+      }
+      tfoot td:nth-child(1) {
+        border: none;
+      }
+      tfoot td:nth-child(2) {
+        border: none;
+        display: flex;
+        padding-top: 70px;
+        justify-content: end;
+      }
+      @media print {
+        input, button{
+            display: none;
+        }
+
+        /* Start essential css for add footer every page */
+        table {
+          page-break-after: auto;
+        }
+        tr {
+          page-break-inside: avoid;
+          page-break-after: auto;
+        }
+        td {
+          page-break-inside: avoid;
+          page-break-after: auto;
+        }
+        thead {
+          display: table-header-group;
+        }
+        tfoot {
+          display: table-footer-group;
+        }
+
+        /* End essential css for add footer every page */
+      }
+    </style>
+  </head>
+  <body>
+    <input type="number" /> <br />
+    <button>click to get table rows</button>
+    <button>click for print</button>
+
+    <table>
+      <thead>
+        <td>sr</td>
+        <td>hridoy</td>
+      </thead>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>signature</td>
+        </tr>
+      </tfoot>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      document.querySelectorAll("button")[0].addEventListener("click", () => {
+        let rowlng = document.querySelector("input").value;
+        let body = document.querySelector("tbody");
+        body.innerHTML = "";
+
+        for (let i = 1; i <= rowlng; i++) {
+          body.innerHTML += `
+                  <tr>
+                      <td>${i}</td>
+                      <td>Parson ${i}</td>
+                  </tr>
+                  `;
+        }
+      });
+      document.querySelectorAll("button")[1].addEventListener("click", () => {
+        window.print();
+      });
+    </script>
+  </body>
+</html>
